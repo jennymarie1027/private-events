@@ -1,10 +1,13 @@
 <h1>Events</h1>
+<div>
+    <%= link_to "Create New Event", new_event_path, class: "btn btn-primary" %>
+</div>
 
 <div id="events">
     <% @events.each do |event| %>
         <div class="event">
             <h2><%= link_to event.title, event_path(event) %></h2>
-            <p><strong>Date:</strong> <%= event.date.strftime("%B %d, %Y") %></p>
+            <p><strong>Time:</strong> <%= event.time %></p>
             <p><strong>Location:</strong> <%= event.location %></p>
             <p><strong>Description:</strong> <%= truncate(event.description, length: 100) %></p>
         </div>

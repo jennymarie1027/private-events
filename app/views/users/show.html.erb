@@ -1,8 +1,8 @@
 <h1>Users Show Page</h1>
 
 <h2>events user has created:</h2>
-<div id="events">
-    <% @events.each do |event| %>
+<div id="user">
+    <% @user.events.each do |event| %>
         <div class="event">
             <h2><%= link_to event.title, event_path(event) %></h2>
             <p><strong>Date:</strong> <%= event.date.strftime("%B %d, %Y") %></p>
