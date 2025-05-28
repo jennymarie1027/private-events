@@ -54,6 +54,17 @@ class EventsController < ApplicationController
       redirect_to events_path, notice: 'Event was successfully deleted'
     end
 
+    def invite
+      @event = Event.find(params[:id])
+      user_ids = params[:user_ids]
+      @event.invite_users(user_ids) if user_ids.present?
+      
+      redirect_to event_path(@event), notice: 'Users were successfully invited'
+    rescue ActiveRecord::RecordInvalid => e
+      flash.now[:alert] = "Error inviting users: #{e.message}"
+      render :show, status: :unprocessable_entity
+    end
+
     private
     def event_params
       params.require(:event).permit(:title, :description, :location, :time)
