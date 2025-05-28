@@ -26,6 +26,34 @@ class EventsController < ApplicationController
       @creator = @event.creator
     end
 
+    def edit
+      @event = Event.find(params[:id])
+      unless @event.creator == current_user
+        redirect_to events_path, alert: 'You are not authorized to edit this event'
+      end
+    end
+
+    def update
+      @event = Event.find(params[:id])
+      if @event.update(event_params)
+        redirect_to event_path(@event), notice: 'Event was successfully updated'
+      else
+        flash.now[:alert] = 'Event could not be updated'
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
+    def delete
+      @event = Event.find(params[:id])
+    end
+
+    def destroy
+      @event = Event.find(params[:id])
+      puts "Deleting event: #{@event.inspect}"
+      @event.destroy
+      redirect_to events_path, notice: 'Event was successfully deleted'
+    end
+
     private
     def event_params
       params.require(:event).permit(:title, :description, :location, :time)
