@@ -1,8 +1,18 @@
 <h2><%= @event.title %></h2>
 <p><strong>time:</strong> <%= @event.time %></p>
-<p><strong>Location:</strong> <%= @event.location %></p>
-<p><strong>Description:</strong> <%= truncate(@event.description, length: 100) %></p>
-<p><strong>Creator</strong><%= @event.creator.email %></p>
+<p><strong>Location: </strong> <%= @event.location %></p>
+<p><strong>Description: </strong> <%= truncate(@event.description, length: 100) %></p>
+<p><strong>Creator: </strong><%= @event.creator.email %></p>
+<% if @event.attendees.any? %>
+    <h3>Attendees</h3>
+    <ul>
+        <% @event.attendees.each do |attendee| %>
+            <li><%= attendee.email %></li>
+        <% end %>
+    </ul>
+<% else %>
+    <p><strong>Invited Guests: </strong>none yet</p>
+<% end %>
 
 <div>
     <%= link_to "Back to Events", events_path, class: "btn btn-primary" %>

@@ -5,14 +5,6 @@ class Rsvp < ApplicationRecord
     validates :guest_id, presence: true
     validates :event_id, presence: true
     validates :status, presence: true, inclusion: { in: %w[pending accepted declined] }
-    # validate :event_date_in_future
 
-    
-    # private
-    # def event_date_in_future
-    #   if event && event.date < Date.today
-    #     errors.add(:event, "must be in the future")
-    #   end
-    # end
 end
   

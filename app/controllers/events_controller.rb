@@ -57,7 +57,7 @@ class EventsController < ApplicationController
     def invite
       @event = Event.find(params[:id])
       user_ids = params[:user_ids]
-      @event.invite_users(user_ids) if user_ids.present?
+      @event.invite_guests(user_ids) if user_ids.present?
       
       redirect_to event_path(@event), notice: 'Users were successfully invited'
     rescue ActiveRecord::RecordInvalid => e
@@ -70,7 +70,3 @@ class EventsController < ApplicationController
       params.require(:event).permit(:title, :description, :location, :time)
     end
 end
-
-# @events = @user.events
-# @user = User.find(params[:user_id])
-# @event = @user.events.build(title: 'New Event', description: 'Event Description')
