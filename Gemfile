@@ -36,6 +36,7 @@ gem "kamal", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
+gem "faker", "~> 3.5.1"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -56,10 +57,15 @@ group :development do
   gem "web-console"
 end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 6.0' # Update to a more recent version
+  gem 'factory_bot_rails'     # Use factory_bot_rails instead of just factory_bot
+  gem 'byebug'
+end
+
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem 'capybara'
+  gem 'database_cleaner-active_record' # Use the specific adapter
 end
 
 gem "devise", "~> 4.9"
