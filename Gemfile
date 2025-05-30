@@ -58,7 +58,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 6.0' # Update to a more recent version
+  gem 'rspec-rails', '~> 8.0' # Update to a more recent version
   gem 'factory_bot_rails'     # Use factory_bot_rails instead of just factory_bot
   gem 'byebug'
 end
