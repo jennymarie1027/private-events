@@ -16,6 +16,7 @@ class EventsController < ApplicationController
       @event.creator = current_user
 
       if @event.save
+        # render json: @event, status: :created
         redirect_to events_path, notice: 'Event was successfully created'
       else
         flash.now[:alert] = 'Event could not be created'
