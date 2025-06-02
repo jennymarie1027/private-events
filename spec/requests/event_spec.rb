@@ -9,7 +9,7 @@ describe EventsController do
 
     describe "GET /events" do
         it "returns a list of events" do
-            get events_path # Assuming you have a route defined for events
+            get events_path
             expect(response).to have_http_status(:ok)
             expect(JSON.parse(response.body).size).to be >= 0
         end
@@ -29,13 +29,10 @@ describe EventsController do
     describe "PUT /events/:id" do
         user = FactoryBot.create(:user)
         event = FactoryBot.create(:event, creator: user, title: "Original Title")
-        # let!(:event) { create(:event, title: "Old Event") }
         
         it "updates an existing event" do
-            # user = User.find(event.user_id)
             sign_in user
-            patch "/events/#{event.id}", params: { event: { title: "Updated Title" } } 
-            puts "Event === #{event.inspect}"
+            patch event_path(event), params: { event: { title: "Updated Title" } } 
             expect(response).to have_http_status(:found)
             expect(response).to redirect_to(event_path(event))
             event.reload
@@ -43,12 +40,16 @@ describe EventsController do
         end
     end
     
-    # describe "DELETE /events/:id" do
-    #     let!(:event) { create(:event) }
+    describe "DELETE /events/:id" do
+        user = FactoryBot.create(:user)
+        event = FactoryBot.create(:event, creator: user, title: "Original Title")
     
-    #     it "deletes an event" do
-    #     delete event_path(event)
-    #     expect(response).to have_http_status(:no_content)
-    #     end
-    # end
+        it "deletes an event" do
+            sign_in user
+            delete event_path(event)
+            expect(response).to have_http_status(:found)
+            expect(response).to redirect_to(events_path)
+            expect(Event.find_by(id: event.id)).to be_nil
+        end
+    end
 end
