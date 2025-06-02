@@ -5,11 +5,11 @@ describe "Events API", type: :request do
     describe "as an authorized user" do
 
         describe "GET /events" do
-            before { FactoryBot.create_list(:event, 5) }
+            let!(:events) { FactoryBot.create_list(:event, 5) }
             it "returns a list of events" do
                 get events_path
                 expect(response).to have_http_status(:ok)
-                expect(JSON.parse(response.body).size).to be >= 5
+                expect(JSON.parse(response.body).size).to eq(5)
             end
         end
         
@@ -39,8 +39,8 @@ describe "Events API", type: :request do
         end
         
         describe "DELETE /events/:id" do
-            user = FactoryBot.create(:user)
-            event = FactoryBot.create(:event, creator: user, title: "Original Title")
+            let(:user) { FactoryBot.create(:user) }
+            let(:event) { FactoryBot.create(:event, creator: user, title: "Original Title") }
         
             it "deletes an event" do
                 sign_in user
@@ -76,10 +76,13 @@ describe "Events API", type: :request do
     describe "as an unauthorized user" do
 
         describe "GET /events" do
-            # before { FactoryBot.create_list(:event, 5) }
+            before { FactoryBot.create_list(:event, 5) }
             it "returns a list of events" do
                 get events_path
                 expect(response).to have_http_status(:ok)
+                puts response.body.size
+                puts response.body
+
                 expect(JSON.parse(response.body).size).to be >= 5
             end
         end
