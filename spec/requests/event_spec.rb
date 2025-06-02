@@ -88,7 +88,7 @@ describe "Events API", type: :request do
             it "redirects to user login page" do
                 post events_path, params: { event: { title: "Unauthorized Event", time: "2023-10-01", location: "test location", description: "fun" } }
                 expect(response).to have_http_status(:found)
-                expect(response).to redirect_to(new_user_session_path) #  Redirect to login 
+                expect(response).to redirect_to(new_user_session_path)
             end
         end
         
@@ -97,7 +97,7 @@ describe "Events API", type: :request do
             it "redirects to user login page" do
                 patch event_path(event), params: { event: { title: "Updated Title" } }
                 expect(response).to have_http_status(:found)
-                expect(response).to redirect_to(new_user_session_path) #  Redirect to login 
+                expect(response).to redirect_to(new_user_session_path)
             end
         end
         
@@ -106,7 +106,7 @@ describe "Events API", type: :request do
             it "redirects to user login page" do
                 delete event_path(event)
                 expect(response).to have_http_status(:found)
-                expect(response).to redirect_to(new_user_session_path) #  Redirect to login 
+                expect(response).to redirect_to(new_user_session_path)
             end
         end
 
@@ -115,7 +115,7 @@ describe "Events API", type: :request do
             it "redirects to user login page" do
                 post invite_event_path(event), params: { user_ids: [1, 2] }
                 expect(response).to have_http_status(:found)
-                expect(response).to redirect_to(new_user_session_path) #  Redirect to login 
+                expect(response).to redirect_to(new_user_session_path)
             end
         end
     end
